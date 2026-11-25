@@ -17,8 +17,23 @@
       --cream: #f5efe5;
       --paper: #fcf9f2;
       --muted: #84796c;
+      --card: #fffdf8;
+      --border: #e9e1d5;
       --serif: "Gowun Batang", "Batang", serif;
       --sans: "DM Sans", "Apple SD Gothic Neo", sans-serif;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --ink: #f0e7dc;
+      --wine: #d7a07e;
+      --wine-dark: #321f22;
+      --gold: #d8b979;
+      --cream: #302722;
+      --paper: #211c19;
+      --muted: #b7aa9c;
+      --card: #2c2520;
+      --border: #51453a;
     }
 
     * { box-sizing: border-box; }
@@ -29,6 +44,7 @@
       background: var(--paper);
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
+      transition: color .25s, background-color .25s;
     }
     button, a { font: inherit; }
     a { color: inherit; text-decoration: none; }
@@ -122,9 +138,18 @@
       transition: background .2s, color .2s;
     }
     .nav-order:hover { color: var(--ink); background: var(--gold); }
+    .theme-toggle {
+      padding: 10px 12px;
+      color: #fffaf1;
+      border: 1px solid rgba(255,255,255,.45);
+      background: transparent;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover { color: var(--ink); border-color: var(--gold); background: var(--gold); }
     .menu-toggle {
       display: none;
-      color: white;
+      color: var(--gold);
       border: 0;
       background: transparent;
       font-size: 25px;
@@ -237,7 +262,7 @@
     .intro p {
       max-width: 540px;
       margin: auto;
-      color: #73685d;
+      color: var(--muted);
       font-size: 12px;
       line-height: 2;
       word-break: keep-all;
@@ -273,13 +298,19 @@
     }
     .filter-btn {
       padding: 9px 18px;
-      color: #766b5f;
-      border: 1px solid #e3dace;
+      color: var(--muted);
+      border: 1px solid var(--border);
       background: transparent;
       font-size: 11px;
       transition: all .2s;
     }
     .filter-btn:hover, .filter-btn.active { color: white; border-color: var(--wine); background: var(--wine); }
+    :root[data-theme="dark"] .filter-btn:hover,
+    :root[data-theme="dark"] .filter-btn.active {
+      color: #fffaf1;
+      border-color: var(--wine-dark);
+      background: var(--wine-dark);
+    }
     .menu-grid {
       width: min(1120px, 100%);
       display: grid;
@@ -289,8 +320,8 @@
     }
     .menu-card {
       overflow: hidden;
-      border: 1px solid #e9e1d5;
-      background: #fffdf8;
+      border: 1px solid var(--border);
+      background: var(--card);
       transition: transform .25s, box-shadow .25s;
     }
     .menu-card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(48,33,23,.1); }
@@ -309,7 +340,7 @@
       left: 12px;
       padding: 6px 9px;
       color: #fff;
-      background: var(--wine);
+      background: var(--wine-dark);
       font-size: 9px;
       letter-spacing: .08em;
     }
@@ -317,18 +348,19 @@
     .menu-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 7px; }
     .menu-title-row h3 { margin: 0; font-family: var(--serif); font-size: 17px; font-weight: 700; }
     .price { color: var(--wine); font-size: 12px; font-weight: 700; white-space: nowrap; }
-    .menu-info p { min-height: 36px; margin: 10px 0 14px; color: #82786e; font-size: 10px; line-height: 1.7; word-break: keep-all; }
+    .menu-info p { min-height: 36px; margin: 10px 0 14px; color: var(--muted); font-size: 10px; line-height: 1.7; word-break: keep-all; }
     .add-btn {
       width: 100%;
       padding: 9px;
       color: var(--wine);
-      border: 1px solid #d8c4ba;
+      border: 1px solid var(--border);
       background: transparent;
       font-size: 10px;
       transition: all .2s;
     }
     .add-btn:hover { color: white; border-color: var(--wine); background: var(--wine); }
-    .menu-footnote { margin: 27px 0 0; color: #94897e; text-align: center; font-size: 10px; }
+    :root[data-theme="dark"] .add-btn:hover { color: var(--paper); }
+    .menu-footnote { margin: 27px 0 0; color: var(--muted); text-align: center; font-size: 10px; }
 
     .story {
       min-height: 510px;
@@ -386,7 +418,7 @@
     }
     .visit-detail { min-width: 130px; }
     .visit-detail strong { display: block; margin-bottom: 9px; color: var(--wine); font-size: 10px; letter-spacing: .12em; }
-    .visit-detail span { color: #74695e; font-size: 12px; line-height: 1.8; }
+    .visit-detail span { color: var(--muted); font-size: 12px; line-height: 1.8; }
     footer {
       padding: 34px 24px;
       color: rgba(255,250,241,.66);
@@ -416,8 +448,10 @@
     .toast.show { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 900px) {
-      .nav-wrap { padding: 0 26px; }
-      .nav-links { gap: 20px; }
+      .nav-wrap { gap: 16px; padding: 0 26px; }
+      .nav-links { gap: 12px; }
+      .nav-order { padding: 9px 10px; }
+      .theme-toggle { padding: 9px 8px; }
       .menu-grid { grid-template-columns: repeat(2, 1fr); max-width: 650px; }
       .menu-photo { height: 230px; }
     }
@@ -441,6 +475,7 @@
       .nav-links.open { display: flex; flex-direction: column; }
       .nav-links a { padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
       .nav-order { margin-top: 14px; }
+      .theme-toggle { margin-top: 10px; }
       .hero { min-height: 660px; height: 82vh; background-position: 58% center; }
       .hero-content { padding: 42px 32px; }
       .hero h1 { font-size: clamp(40px, 12vw, 58px); }
@@ -486,6 +521,7 @@
         <a href="#menu">메뉴</a>
         <a href="#visit">찾아오시는 길</a>
         <button class="nav-order" type="button" data-scroll-menu>메뉴 둘러보기&nbsp; ↗</button>
+        <button class="theme-toggle" type="button" aria-label="다크 모드로 전환" aria-pressed="false">☾ 다크 모드</button>
       </div>
     </nav>
   </header>
@@ -591,8 +627,17 @@
     const menuCards = document.querySelectorAll(".menu-card");
     const toast = document.querySelector(".toast");
     const menuToggle = document.querySelector(".menu-toggle");
+    const themeToggle = document.querySelector(".theme-toggle");
     let toastTimer;
     let orderCount = 0;
+
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.documentElement.dataset.theme !== "dark";
+      document.documentElement.dataset.theme = isDark ? "dark" : "light";
+      themeToggle.setAttribute("aria-pressed", String(isDark));
+      themeToggle.setAttribute("aria-label", isDark ? "라이트 모드로 전환" : "다크 모드로 전환");
+      themeToggle.textContent = isDark ? "☀ 라이트 모드" : "☾ 다크 모드";
+    });
 
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
